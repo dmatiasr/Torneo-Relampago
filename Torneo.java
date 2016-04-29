@@ -8,7 +8,7 @@
 
 import java.io.*;
 public class Torneo {
-	public static Tablero tablero;
+	//public  Tablero tablero;
 	public Pair p;
 	public static void main(String[] args) {
 		//Hacer metodos para tomar las horas como parametros(intervalo y hsDisponibilidad) 
@@ -29,16 +29,16 @@ public class Torneo {
 		int[] jugHs5 = {16,17,18,23};				//16 a 18 y 23hs
 		int[] jugHs6 = {0,1,2,3,4,5,6,7,8,9,10,14,15,16,17,23}; //0 a 10, y 14,15,16,17,23
 		//creo una matriz
-		Tablero tab= new Tablero();
+		Tablero tablero= new Tablero();
 		//cargo para cada fila(jugador) sus correspondientes horas
-		cargaHsDisp(tab,jug1, jugHs1);
-		cargaHsDisp(tab,jug2, jugHs2);
-		cargaHsDisp(tab,jug3, jugHs3);
-		cargaHsDisp(tab,jug4, jugHs4);
-		cargaHsDisp(tab,jug5, jugHs5);
-		cargaHsDisp(tab,jug6, jugHs6);
+		cargaHsDisp(tablero,jug1, jugHs1);
+		cargaHsDisp(tablero,jug2, jugHs2);
+		cargaHsDisp(tablero,jug3, jugHs3);
+		cargaHsDisp(tablero,jug4, jugHs4);
+		cargaHsDisp(tablero,jug5, jugHs5);
+		cargaHsDisp(tablero,jug6, jugHs6);
 
-		System.out.println(tab.toString());
+		System.out.println(tablero.toString());
 		Pair<Integer,Integer> par= new Pair<Integer,Integer>();
 		par= minHsDisp(tablero);
 		System.out.println("El menor es "+par );
@@ -46,9 +46,9 @@ public class Torneo {
 
 	//para jugador (fila) carga los valores de una lista de intervalos correspondientes a 
 	//una hora
-	public static void cargaHsDisp(Tablero tab,int fila,int[] intervaloHs){
+	public static void cargaHsDisp(Tablero tablero,int fila,int[] intervaloHs){
 		for (int i=0; i < intervaloHs.length;i++){
-			tab.setPosition(1,fila,intervaloHs[i]);
+			tablero.setPosition(1,fila,intervaloHs[i]);
 		}		
 	}
 	//calcula cuantas horas ocupadas hay en la fila (cuantos valores 1 hay en esa fila)
@@ -63,14 +63,14 @@ public class Torneo {
 	}
 	//calcular la fila que tiene menos hs disponibles.(jugador con menos hs disponibles.)	
 	//retornar la fila (el jugador) y cuantas hsDisponibles tiene.
-	public static Pair<Integer,Integer> minHsDisp (Tablero tab){
+	public static Pair<Integer,Integer> minHsDisp (Tablero tablero){
 		Pair<Integer,Integer> p = new Pair<Integer,Integer>();
 		//calculo las hs para el primer jugador y comparo con los demas	
-		int jug= countHs(0,tab);
+		int jug= countHs(0,tablero);
 		int i=1;
-		while( i<tab.getLengthFil()-1 ){
-			if (jug> countHs(i,tab)){ //comparar el primero con los demas e ir guardando el minimo.
-				jug=countHs(i,tab);//actualizo el nuevo minimo
+		while( i<tablero.getLengthFil() ){
+			if (jug> countHs(i,tablero)){ //comparar el primero con los demas e ir guardando el minimo.
+				jug=countHs(i,tablero);//actualizo el nuevo minimo
 				p.setPair(Integer.valueOf(i),Integer.valueOf(jug));//le paso el jugador y cuanto tiene
 			}
 			i++;
