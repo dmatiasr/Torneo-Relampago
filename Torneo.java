@@ -1,6 +1,15 @@
+/*
+	Calcular las partidas a partir del jugador que tiene menos hs disponibles con el resto : del mas
+	chico al mas grande (del que tiene menos hsDisp al que tiene mas) e ir actualizando la matriz
+	de las hs ya ocupadas y calcular el siguiente.
+
+*/
+
+
 import java.io.*;
 public class Torneo {
-
+	public static Tablero tablero;
+	public Pair p;
 	public static void main(String[] args) {
 		//Hacer metodos para tomar las horas como parametros(intervalo y hsDisponibilidad) 
 		//de linea de entrada para cada jugador
@@ -30,19 +39,44 @@ public class Torneo {
 		cargaHsDisp(tab,jug6, jugHs6);
 
 		System.out.println(tab.toString());
-
+		Pair<Integer,Integer> par= new Pair<Integer,Integer>();
+		par= minHsDisp(tablero);
+		System.out.println("El menor es "+par );
 	}
 
 	//para jugador (fila) carga los valores de una lista de intervalos correspondientes a 
 	//una hora
-
-
 	public static void cargaHsDisp(Tablero tab,int fila,int[] intervaloHs){
 		for (int i=0; i < intervaloHs.length;i++){
 			tab.setPosition(1,fila,intervaloHs[i]);
 		}		
 	}
-
-
+	//calcula cuantas horas ocupadas hay en la fila (cuantos valores 1 hay en esa fila)
+	public static int countHs (int fila,Tablero tablero){
+		int count=0;
+		for (int c=0 ; c<tablero.getLengthCol(); c++){
+			if (tablero.tab[fila][c] == 1){
+				count++;
+			}
+		}
+		return count;
+	}
+	//calcular la fila que tiene menos hs disponibles.(jugador con menos hs disponibles.)	
+	//retornar la fila (el jugador) y cuantas hsDisponibles tiene.
+	public static Pair<Integer,Integer> minHsDisp (Tablero tab){
+		Pair<Integer,Integer> p = new Pair<Integer,Integer>();
+		//calculo las hs para el primer jugador y comparo con los demas	
+		int jug= countHs(0,tab);
+		int i=1;
+		while( i<tab.getLengthFil()-1 ){
+			if (jug> countHs(i,tab)){ //comparar el primero con los demas e ir guardando el minimo.
+				jug=countHs(i,tab);//actualizo el nuevo minimo
+				p.setPair(Integer.valueOf(i),Integer.valueOf(jug));//le paso el jugador y cuanto tiene
+			}
+			i++;
+		}
+		p.setPair(Integer.valueOf(i),Integer.valueOf(jug));
+		return p;			
+	}
 
 }

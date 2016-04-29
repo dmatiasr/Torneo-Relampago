@@ -1,8 +1,8 @@
 public class Tablero {
-	private int[][] tab;
+	public int[][] tab;
 	private int fila=6;
 	private int col=24;
-
+	//Inicializa el tablero con posiciones False = 0
 	public Tablero (){
 		tab = new int[fila][col];
 		for (int i=0; i < fila; i++){
@@ -11,8 +11,12 @@ public class Tablero {
 			}
 		}
 	}
+	//Devuelve el tamaño de la columna
 	public int getLengthCol (){
 		return col;
+	}
+	public int getLengthFil(){
+		return fila;
 	}
 
 
