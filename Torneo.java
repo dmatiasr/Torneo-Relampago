@@ -98,18 +98,11 @@ public class Torneo {
 		//representa el jugador con menos hs y la cantidad que tiene.
 		Pair<Integer,Integer> minJugHs = new Pair<Integer,Integer>();
 		Pair<Integer,Integer> sndMinJugHs = new Pair<Integer,Integer>();
-		//PROBAR QUE, DADO UN CONJUNTO(LISTA DE JUG) Y TABLERO, SACO EL MINIMO QUE 
-		//NO ESTE EN EL CONJUNTO
-		//set.add(Integer.valueOf(2));
-		//set.add(Integer.valueOf(4));
-		//set.add(Integer.valueOf(1));
-		//set.add(Integer.valueOf(0));
-		//set.add(Integer.valueOf(3));
-		sndMinJugHs= minNotSet(tablero,set);
-		System.out.println("minimo q no esta en el conjunto "+sndMinJugHs.toString());
+		
+
 
 		//mientras el tamaño de la lista sea menor a la cantidad de jugadores del campeonato.
-		/*	for(int i=0;i<tablero.getLengthFil();i++){
+			for(int i=0;i<tablero.getLengthFil();i++){
 			minJugHs = minHsDisp(tablero);
 			set.add(Integer.valueOf(minJugHs.getFirst())) //meto el jugador con menos HsDisponibles
 			//ahora comparo con el resto de los jugadores
@@ -120,7 +113,7 @@ public class Torneo {
 			}
 
 		}
-		*/
+		
 
 		//minHsDisp Funciona correcto!
 		//System.out.println(tablero.toString());
@@ -190,6 +183,7 @@ public class Torneo {
 
 	//Dado un conjunto y un tablero visto como una lista de jugadores, saco el jugador
 	//con menos hsDisponibles que no pertenezca al conjunto
+	// Return Min PAR = (Jug,CantidadHsDisp)
 	public static Pair<Integer,Integer> minNotSet(Tablero tablero, LinkedList set){
 		Pair<Integer,Integer> p = new Pair<Integer,Integer>();
 		int jug=0;
@@ -243,7 +237,27 @@ public class Torneo {
 		}	
 			return p;
 	}
-
-
-
+	//Dados 2 jugadores, buscar la interseccion (la primer o unica hs disponible que tienen
+	//en comun, si es 0 "vacio" ,entonces no tienen interseccion en comun)
+	//El primer parametro va a ser el que menos hs tiene
+	public static Integer interseccionHs(Integer jug1,Integer jug2,Tablero tablero){
+		Integer intersec= new Integer();
+		intersec=0;
+		for (int c=0;c<tablero.getLengthCol();i++){
+			if (tablero.tab[jug1][c]==1){ //si el jugador1 en esa col==1
+				if(tablero.tab[jug2][c]==1){//si el jugador2 en esa col==1
+					//entonces comparten hs
+					intersec=Integer.valueOf(i); //y es la hora i
+				}
+			}
+		}
+		return intersec;
+				
+	}
+	//Dada una hora y dos jugadores, setea en 0 la hora que comparten los jugadores
+	//en el tablero.
+	public static void setHs (Integer hora,Integer jug1,Integer jugador2,Tablero tablero){
+		tablero.setPosition(jug1.intValue(),hora,0); //no hay mas interseccion en esta hora.
+		tablero.setPosition(jug2.intValue(),hora,0);
+	} 
 }
