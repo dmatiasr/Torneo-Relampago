@@ -8,6 +8,8 @@
 
 import java.io.*;
 import java.util.Scanner;
+import java.util.*;
+
 public class Torneo {
 	//public  Tablero tablero;
 	//public Pair p;
@@ -15,6 +17,9 @@ public class Torneo {
 		//Hacer metodos para tomar las horas como parametros(intervalo y hsDisponibilidad) 
 		//de linea de entrada para cada jugador
 		//Carga de jugadores segun su fila
+
+		/*
+		----------PARTE MAURY PARA UNIR-----------------
 
 		Jugador j0 = new Jugador(0);
 		Jugador j1 = new Jugador(1);
@@ -57,6 +62,72 @@ public class Torneo {
 		Pair<Integer,Integer> par= new Pair<Integer,Integer>();
 		par= minHsDisp(tablero);
 		System.out.println("El menor es "+par.toString() );
+		---------------FIN PARTE MAURY------------------------------------*/	
+	
+		int jug0,jug1,jug2,jug3,jug4,jug5;
+		jug0=0;
+		jug1=1;
+		jug2=2;
+		jug3=3;
+		jug4=4;
+		jug5=5;
+		//carga de los horarios de cada jugador
+		int[] jugHs0 = {2,3,4,5,14,16};              //2 a 5 y hsDisp = 14hs 16hs --6
+		int[] jugHs1 = {14,15,16,20,21};				//14 a 16 y 20hs,21hs --5
+		int[] jugHs2 = {2,3,4,23};					//2 a 4 y 23 hs  ---4
+		int[] jugHs3 = {13,14,15,16,17,21,22,23};	//13 a 17 y 21hs,22hs,23hs ---8
+		int[] jugHs4 = {16,17,18,23};				//16 a 18 y 23hs ---4
+		int[] jugHs5 = {0,1,2,3,4,5,6,7,8,9,10,14,15,16,17,23}; //0 a 10, y 14,15,16,17,23 --16
+		//creo una matriz
+		Tablero tablero= new Tablero();
+		//cargo para cada fila(jugador) sus correspondientes horas
+		cargaHsDisp(tablero,jug0, jugHs0);
+		cargaHsDisp(tablero,jug1, jugHs1);
+		cargaHsDisp(tablero,jug2, jugHs2);
+		cargaHsDisp(tablero,jug3, jugHs3);
+		cargaHsDisp(tablero,jug4, jugHs4);
+		cargaHsDisp(tablero,jug5, jugHs5);
+		
+		//--------------- Fin de carga de datos ---------------------
+		//Creo un conjunto vacio, donde guardar los jugadores q ya van jugando
+		LinkedList<Integer> set= new LinkedList<Integer>();
+		//representa una partida
+		Tern<Integer,Integer,Integer> partida = new Tern<Integer,Integer,Integer>();
+		//va a guardar la lista de partidas
+		LinkedList<Tern> fixture= new LinkedList<Tern>();
+		//representa el jugador con menos hs y la cantidad que tiene.
+		Pair<Integer,Integer> minJugHs = new Pair<Integer,Integer>();
+		Pair<Integer,Integer> sndMinJugHs = new Pair<Integer,Integer>();
+		//PROBAR QUE, DADO UN CONJUNTO(LISTA DE JUG) Y TABLERO, SACO EL MINIMO QUE 
+		//NO ESTE EN EL CONJUNTO
+		//set.add(Integer.valueOf(2));
+		//set.add(Integer.valueOf(4));
+		//set.add(Integer.valueOf(1));
+		//set.add(Integer.valueOf(0));
+		//set.add(Integer.valueOf(3));
+		sndMinJugHs= minNotSet(tablero,set);
+		System.out.println("minimo q no esta en el conjunto "+sndMinJugHs.toString());
+
+		//mientras el tamaño de la lista sea menor a la cantidad de jugadores del campeonato.
+		/*	for(int i=0;i<tablero.getLengthFil();i++){
+			minJugHs = minHsDisp(tablero);
+			set.add(Integer.valueOf(minJugHs.getFirst())) //meto el jugador con menos HsDisponibles
+			//ahora comparo con el resto de los jugadores
+			for(int j=0;j<tablero.getLengthFil()){
+				//saco el prox minimo que no pertenezca al conjunto
+				
+
+			}
+
+		}
+		*/
+
+		//minHsDisp Funciona correcto!
+		//System.out.println(tablero.toString());
+		//Pair<Integer,Integer> par= new Pair<Integer,Integer>();
+		//par= minHsDisp(tablero);
+		//System.out.println("El menor es "+par.toString() );		
+
 	}
 
 	//para jugador (fila) carga los valores de una lista de intervalos correspondientes a 
@@ -116,5 +187,63 @@ public class Torneo {
 			i++;
 		}
 	}
+
+	//Dado un conjunto y un tablero visto como una lista de jugadores, saco el jugador
+	//con menos hsDisponibles que no pertenezca al conjunto
+	public static Pair<Integer,Integer> minNotSet(Tablero tablero, LinkedList set){
+		Pair<Integer,Integer> p = new Pair<Integer,Integer>();
+		int jug=0;
+		if (set.size()==5){
+			//tamaño del set es 5, entonces hay que buscar solo el q queda.
+			//el unico que no este en el conjunto
+			for (int i=0;i<tablero.getLengthFil();i++){
+				if (!set.contains(Integer.valueOf(i))){
+					jug=countHs(i,tablero);
+					p.setPair(Integer.valueOf(i),Integer.valueOf(jug));
+				}
+			}
+		}
+		else {
+			//Hay mas de un elemento a buscar.
+			int i=0;
+			while(i<tablero.getLengthFil()-1){
+				if (! set.contains(Integer.valueOf(i)) ){ //agarro el primer que no este en el conjunto
+					//y lo comparo con los demas que no este en conjunto
+					jug= countHs(i,tablero);
+					int j=i+1;
+					while (j<tablero.getLengthFil()){ 
+						//si j no esta en el Set
+						if (! set.contains(Integer.valueOf(j) )	){//si el prox tampoco esta, comparo
+							
+							if (jug<=countHs(j,tablero)){
+								//guardo el minimo y sigo comparando con el resto
+								p.setPair(Integer.valueOf(i),Integer.valueOf(jug));
+							}
+							else{
+								//se calcula el nuevo minimo y se compara con el resto desde el hacia los demas
+								jug=countHs(j,tablero);
+								i=j;
+							}	
+						}
+						j++;
+					}
+					//Si j ya recorrio todos, que no salte a buscar desde el proximo
+					//que corte con el minimo q ya encontro, que es el correcto.
+					if (j==tablero.getLengthFil()){
+						i=j;
+					}				
+				}
+				i++;	
+			}
+			//caso si el ultimo es el minimo, no controlado en el ciclo pporq se va de rango "i".
+			if (p.getSecond() > countHs(tablero.getLengthFil()-1,tablero) ){
+				jug=countHs(tablero.getLengthFil()-1,tablero);
+				p.setPair(Integer.valueOf(tablero.getLengthFil()-1),Integer.valueOf(jug ) );
+			}
+		}	
+			return p;
+	}
+
+
 
 }
