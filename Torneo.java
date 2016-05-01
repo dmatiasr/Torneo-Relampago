@@ -73,7 +73,7 @@ public class Torneo {
 		jug5=5;
 		//carga de los horarios de cada jugador
 		int[] jugHs0 = {2,3,4,5,14,16};              //2 a 5 y hsDisp = 14hs 16hs --6
-		int[] jugHs1 = {14,15,16,20,21};				//14 a 16 y 20hs,21hs --5
+		int[] jugHs1 = {14,15,16,20,21,3};				//14 a 16 y 20hs,21hs --5
 		int[] jugHs2 = {2,3,4,23};					//2 a 4 y 23 hs  ---4
 		int[] jugHs3 = {13,14,15,16,17,21,22,23};	//13 a 17 y 21hs,22hs,23hs ---8
 		int[] jugHs4 = {16,17,18,23};				//16 a 18 y 23hs ---4
@@ -87,6 +87,9 @@ public class Torneo {
 		cargaHsDisp(tablero,jug3, jugHs3);
 		cargaHsDisp(tablero,jug4, jugHs4);
 		cargaHsDisp(tablero,jug5, jugHs5);
+
+
+		System.out.println(tablero.toString());
 		
 		//--------------- Fin de carga de datos ---------------------
 		//Creo un conjunto vacio, donde guardar los jugadores q ya van jugando
@@ -123,7 +126,12 @@ public class Torneo {
 					//guardo la partida y a que hora
 					partida.setTern(minJugHs.getFirst(),nextMinJugHs.getFirst(),intersecc);		
 					//actualizo a ambos que ya no pueden jugar a esa hora con nadie mas
+					System.out.println("jugador1 a setear "+minJugHs.getFirst());
+					System.out.println("jugador2 a setear "+nextMinJugHs.getFirst());
+					System.out.println("Hora a setear"+ intersecc);
+								//hs      jug1                  jug2                  tablero
 					actualizaHs(intersecc,minJugHs.getFirst(),nextMinJugHs.getFirst(),tablero);
+					
 					//meto al conjunto de jugando al nextMinJugHs
 					setMinJugando.add( nextMinJugHs.getFirst() );
 
@@ -263,6 +271,7 @@ public class Torneo {
 				if(tablero.tab[jug2][c]==1){//si el jugador2 en esa col==1
 					//entonces comparten hs 
 					intersec=Integer.valueOf(c); //y es la hora "c"
+					System.out.println("Interseccion"+intersec);
 				}
 			}
 		}
@@ -272,9 +281,10 @@ public class Torneo {
 	//Dada una hora y dos jugadores, setea en 0 la hora que comparten los jugadores
 	//en el tablero.
 	public static void actualizaHs (Integer hora,Integer jug1,Integer jug2,Tablero tablero){
-		tablero.setPosition(jug1.intValue(),hora,0); //no hay mas interseccion en esta hora.
-		tablero.setPosition(jug2.intValue(),hora,0);
+		tablero.setPosition(0,jug1.intValue(),hora.intValue()); //no hay mas interseccion en esta hora.
+		tablero.setPosition(0,jug2.intValue(),hora.intValue());
 	} 
+	//Si una lista esta llena de jugadores, entonces o jugo 1 con todos, o todos con todos.
 	public static boolean fullList(LinkedList l){
 		return (l.size() == 6 ); //si el tamaño de la lista es la cantidad de jugadores
 	}
