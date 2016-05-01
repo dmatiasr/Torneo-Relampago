@@ -151,9 +151,12 @@ public class Torneo {
 				}
 			}
 			setMinJugando.clear(); //Limpio la lista de los que estan jugando (1 contra todos).
+			System.out.println("");
+			System.out.println("Lista de los jugando vaciada "+setMinJugando.toString());	
 			setMinJugaron.add(minJugHs.getFirst() ); //lista de jugadores que ya esta armado sus encuentros
-	
-			setMinJugando = setMinJugaron; //Recuerdo cuales jugadores ya van jugando para no volver a analizarlos
+			System.out.println("Lista de los que ya jugaron "+setMinJugaron.toString());
+			System.out.println("");
+			setMinJugando = (LinkedList<Integer>) setMinJugaron.clone(); //Recuerdo cuales jugadores ya van jugando para no volver a analizarlos
 			// a tratarlos nuevamente.
 		}
 		//Muestro el resultado del fixture armado.
