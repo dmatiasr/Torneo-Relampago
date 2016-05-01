@@ -90,37 +90,52 @@ public class Torneo {
 		
 		//--------------- Fin de carga de datos ---------------------
 		//Creo un conjunto vacio, donde guardar los jugadores q ya van jugando
-		LinkedList<Integer> set= new LinkedList<Integer>();
+		LinkedList<Integer> setMinJugando= new LinkedList<Integer>();
+		//Un "conjunto" donde esten los jugadores que ya jugaron
+		LinkedList<Integer> setMinJugados= new LinkedList<Integer>();
 		//representa una partida
 		Tern<Integer,Integer,Integer> partida = new Tern<Integer,Integer,Integer>();
 		//va a guardar la lista de partidas
 		LinkedList<Tern> fixture= new LinkedList<Tern>();
 		//representa el jugador con menos hs y la cantidad que tiene.
 		Pair<Integer,Integer> minJugHs = new Pair<Integer,Integer>();
-		Pair<Integer,Integer> sndMinJugHs = new Pair<Integer,Integer>();
+		//el segundo jugador con menos hs y la cantidad que tiene
+		Pair<Integer,Integer> nextMinJugHs = new Pair<Integer,Integer>();
 		
-
-
 		//mientras el tamaño de la lista sea menor a la cantidad de jugadores del campeonato.
-			for(int i=0;i<tablero.getLengthFil();i++){
-			minJugHs = minHsDisp(tablero);
-			set.add(Integer.valueOf(minJugHs.getFirst())) //meto el jugador con menos HsDisponibles
+		//mientras no sean las 15 partidas para armar.
+		int cantEncuentros=15;
+		Integer intersecc = new Integer(0);
+		for(int i=0;i<cantEncuentros;i++){
+			minJugHs = minNotSet(tablero,setMinJugando); //saco el minimo distinto de cero.
+			setMinJugando.add( minJugHs.getFirst() ); //meto el jugador con menos HsDisponibles
 			//ahora comparo con el resto de los jugadores
-			for(int j=0;j<tablero.getLengthFil()){
-				//saco el prox minimo que no pertenezca al conjunto
-				
+			//saco el prox minimo que no pertenezca al conjunto
+			//mientras el minimo que estoy tratando no sea cero
+			while( !fullList(setMinJugando) ) {
+				nextMinJugHs= minNotSet(tablero,setMinJugando);
+				//saco la hora que tienen en comun los jugadores que menos Hs Disponibles tienen
+				intersecc = interseccionHs(minJugHs.getFirst(),nextMinJugHs.getFirst(),tablero);		
+				if ( !(intersecc.intValue()==0)){ 
+				//Si la interseccion es 0, entonces no pueden enfrentarse ambos jugadores
+				//porque no hay horarios en comun.
+				//entonces, no se puede armar el fixture.
+					//guardo la partida y a que hora
+					partida.setTern(minJugHs.getFirst(),nextMinJugHs.getFirst(),intersecc);		
+					//actualizo a ambos que ya no pueden jugar a esa hora con nadie mas
+					actualizaHs(intersecc,minJugHs.getFirst(),nextMinJugHs.getFirst(),tablero);
+					//meto al conjunto de jugando al nextMinJugHs
+					setMinJugando.add( nextMinJugHs.getFirst() );
 
+				}else {
+					throw new IllegalArgumentException(""+minJugHs.getFirst()+" y "+nextMinJugHs.getFirst()+"No tienen horas en comun");
+				}
 			}
-
+			setMinJugando.clear(); //Limpio la lista de los que estan jugando (1 contra todos).
+			setMinJugados.add(minJugHs.getFirst()); //lista de jugadores que ya van jugando
+			setMinJugando = setMinJugados; //Recuerdo cuales jugadores ya van jugando para no volver
+			// a tratarlos nuevamente.
 		}
-		
-
-		//minHsDisp Funciona correcto!
-		//System.out.println(tablero.toString());
-		//Pair<Integer,Integer> par= new Pair<Integer,Integer>();
-		//par= minHsDisp(tablero);
-		//System.out.println("El menor es "+par.toString() );		
-
 	}
 
 	//para jugador (fila) carga los valores de una lista de intervalos correspondientes a 
@@ -201,14 +216,15 @@ public class Torneo {
 			//Hay mas de un elemento a buscar.
 			int i=0;
 			while(i<tablero.getLengthFil()-1){
-				if (! set.contains(Integer.valueOf(i)) ){ //agarro el primer que no este en el conjunto
+				if (! set.contains(Integer.valueOf(i)) && !(countHs(i,tablero)==0) ){ 
+				    //agarro el primer que no este en el conjunto, y que no sea 0 la cantidad de hs.
 					//y lo comparo con los demas que no este en conjunto
 					jug= countHs(i,tablero);
 					int j=i+1;
 					while (j<tablero.getLengthFil()){ 
-						//si j no esta en el Set
-						if (! set.contains(Integer.valueOf(j) )	){//si el prox tampoco esta, comparo
-							
+						//si j no esta en el Set, y las horas de j no son cero
+						if (! set.contains(Integer.valueOf(j) )	&& !(countHs(j,tablero)==0) ){
+							//si el prox tampoco esta, comparo
 							if (jug<=countHs(j,tablero)){
 								//guardo el minimo y sigo comparando con el resto
 								p.setPair(Integer.valueOf(i),Integer.valueOf(jug));
@@ -229,7 +245,7 @@ public class Torneo {
 				}
 				i++;	
 			}
-			//caso si el ultimo es el minimo, no controlado en el ciclo pporq se va de rango "i".
+			//caso si el ultimo es el minimo, no controlado en el ciclo porq se va de rango "i".
 			if (p.getSecond() > countHs(tablero.getLengthFil()-1,tablero) ){
 				jug=countHs(tablero.getLengthFil()-1,tablero);
 				p.setPair(Integer.valueOf(tablero.getLengthFil()-1),Integer.valueOf(jug ) );
@@ -241,13 +257,12 @@ public class Torneo {
 	//en comun, si es 0 "vacio" ,entonces no tienen interseccion en comun)
 	//El primer parametro va a ser el que menos hs tiene
 	public static Integer interseccionHs(Integer jug1,Integer jug2,Tablero tablero){
-		Integer intersec= new Integer();
-		intersec=0;
-		for (int c=0;c<tablero.getLengthCol();i++){
+		Integer intersec= new Integer(0);//Si no comparten hs, retorna 0.
+		for (int c=0;c<tablero.getLengthCol();c++){
 			if (tablero.tab[jug1][c]==1){ //si el jugador1 en esa col==1
 				if(tablero.tab[jug2][c]==1){//si el jugador2 en esa col==1
-					//entonces comparten hs
-					intersec=Integer.valueOf(i); //y es la hora i
+					//entonces comparten hs 
+					intersec=Integer.valueOf(c); //y es la hora "c"
 				}
 			}
 		}
@@ -256,8 +271,12 @@ public class Torneo {
 	}
 	//Dada una hora y dos jugadores, setea en 0 la hora que comparten los jugadores
 	//en el tablero.
-	public static void setHs (Integer hora,Integer jug1,Integer jugador2,Tablero tablero){
+	public static void actualizaHs (Integer hora,Integer jug1,Integer jug2,Tablero tablero){
 		tablero.setPosition(jug1.intValue(),hora,0); //no hay mas interseccion en esta hora.
 		tablero.setPosition(jug2.intValue(),hora,0);
 	} 
+	public static boolean fullList(LinkedList l){
+		return (l.size() == 6 ); //si el tamaño de la lista es la cantidad de jugadores
+	}
+
 }
