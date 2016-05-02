@@ -44,7 +44,7 @@ public class Torneo {
 			System.out.println("Carga del sexto jugador");
 			cargaHorarios(j5);
 		}catch (InputMismatchException e) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Carga horarios: Ingreso un dato incorrecto");
         } 
 
 		//carga de los horarios de cada jugador
