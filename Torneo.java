@@ -12,6 +12,7 @@
 import java.io.*;
 import java.util.Scanner;
 import java.util.*;
+import java.util.InputMismatchException;
 
 public class Torneo {
 	//public  Tablero tablero;
@@ -21,9 +22,7 @@ public class Torneo {
 		//de linea de entrada para cada jugador
 		//Carga de jugadores segun su fila
 
-		/*
-		----------PARTE MAURY PARA UNIR-----------------
-
+		
 		Jugador j0 = new Jugador(0);
 		Jugador j1 = new Jugador(1);
 		Jugador j2 = new Jugador(2);
@@ -32,17 +31,21 @@ public class Torneo {
 		Jugador j5 = new Jugador(5);
 
 		System.out.println("Carga del primer jugador");
-		cargaHorarios(j0);
-		System.out.println("Carga del segundo jugador");
-		cargaHorarios(j1);
-		System.out.println("Carga del tercer jugador");
-		cargaHorarios(j2);
-		System.out.println("Carga del cuarto jugador");
-		cargaHorarios(j3);
-		System.out.println("Carga del quinto jugador");
-		cargaHorarios(j4);
-		System.out.println("Carga del sexto jugador");
-		cargaHorarios(j5);
+		try{
+			cargaHorarios(j0);
+			System.out.println("Carga del segundo jugador");
+			cargaHorarios(j1);
+			System.out.println("Carga del tercer jugador");
+			cargaHorarios(j2);
+			System.out.println("Carga del cuarto jugador");
+			cargaHorarios(j3);
+			System.out.println("Carga del quinto jugador");
+			cargaHorarios(j4);
+			System.out.println("Carga del sexto jugador");
+			cargaHorarios(j5);
+		}catch (InputMismatchException e) {
+            throw new IllegalArgumentException();
+        } 
 
 		//carga de los horarios de cada jugador
 		int[] jugHs0 = j0.toArray();    //2 a 5 y hsDisp = 14hs 16hs
@@ -61,35 +64,30 @@ public class Torneo {
 		cargaHsDisp(tablero,j4.getId(), jugHs4);
 		cargaHsDisp(tablero,j5.getId(), jugHs5);
 		
-		System.out.println(tablero.toString());
-		Pair<Integer,Integer> par= new Pair<Integer,Integer>();
-		par= minHsDisp(tablero);
-		System.out.println("El menor es "+par.toString() );
-		---------------FIN PARTE MAURY------------------------------------*/	
 	
-		int jug0,jug1,jug2,jug3,jug4,jug5;
-		jug0=0;
-		jug1=1;
-		jug2=2;
-		jug3=3;
-		jug4=4;
-		jug5=5;
-		//carga de los horarios de cada jugador
-		int[] jugHs0 = {0,1,2,3,4,5,6,7,8,9,10}; //{2,3,4,5,14,16};              //2 a 5 y hsDisp = 14hs 16hs --6
-		int[] jugHs1 = {5,6,7,8,9,10,11,12,13,14,15};//{14,15,16,20,21,3};				//14 a 16 y 20hs,21hs --5
-		int[] jugHs2 = {5,6,7,8,9,10,11,12,13,14,15};							//{2,3,4,23};					//2 a 4 y 23 hs  ---4
-		int[] jugHs3 = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23};							//{13,14,15,16,17,21,22,23};	//13 a 17 y 21hs,22hs,23hs ---8
-		int[] jugHs4 = {9,10,11,12,13,14,15,16,17,18,19,20,21,22};							//{16,17,18,23};				//16 a 18 y 23hs ---4
-		int[] jugHs5 = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23};		//{0,1,2,3,4,5,6,7,8,9,10,14,15,16,17,23}; //0 a 10, y 14,15,16,17,23 --16
-		//creo una matriz
-		Tablero tablero= new Tablero();
-		//cargo para cada fila(jugador) sus correspondientes horas
-		cargaHsDisp(tablero,jug0, jugHs0);
-		cargaHsDisp(tablero,jug1, jugHs1);
-		cargaHsDisp(tablero,jug2, jugHs2);
-		cargaHsDisp(tablero,jug3, jugHs3);
-		cargaHsDisp(tablero,jug4, jugHs4);
-		cargaHsDisp(tablero,jug5, jugHs5);
+		// int jug0,jug1,jug2,jug3,jug4,jug5;
+		// jug0=0;
+		// jug1=1;
+		// jug2=2;
+		// jug3=3;
+		// jug4=4;
+		// jug5=5;
+		// //carga de los horarios de cada jugador
+		// int[] jugHs0 = {0,1,2,3,4,5,6,7,8,9,10}; //{2,3,4,5,14,16};              //2 a 5 y hsDisp = 14hs 16hs --6
+		// int[] jugHs1 = {5,6,7,8,9,10,11,12,13,14,15};//{14,15,16,20,21,3};				//14 a 16 y 20hs,21hs --5
+		// int[] jugHs2 = {5,6,7,8,9,10,11,12,13,14,15};							//{2,3,4,23};					//2 a 4 y 23 hs  ---4
+		// int[] jugHs3 = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23};							//{13,14,15,16,17,21,22,23};	//13 a 17 y 21hs,22hs,23hs ---8
+		// int[] jugHs4 = {9,10,11,12,13,14,15,16,17,18,19,20,21,22};							//{16,17,18,23};				//16 a 18 y 23hs ---4
+		// int[] jugHs5 = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23};		//{0,1,2,3,4,5,6,7,8,9,10,14,15,16,17,23}; //0 a 10, y 14,15,16,17,23 --16
+		// //creo una matriz
+		// Tablero tablero= new Tablero();
+		// //cargo para cada fila(jugador) sus correspondientes horas
+		// cargaHsDisp(tablero,jug0, jugHs0);
+		// cargaHsDisp(tablero,jug1, jugHs1);
+		// cargaHsDisp(tablero,jug2, jugHs2);
+		// cargaHsDisp(tablero,jug3, jugHs3);
+		// cargaHsDisp(tablero,jug4, jugHs4);
+		// cargaHsDisp(tablero,jug5, jugHs5);
 
 
 		System.out.println(tablero.toString());
@@ -176,24 +174,25 @@ public class Torneo {
 	
 
 	public static void cargaHorarios (Jugador j){
-		Scanner scan = new Scanner(System.in);
-		char op='s';
-		int i=0;
-		while (i<23 && op=='s'){
-			System.out.print("Ingrese un horario: ");
-			int hora = scan.nextInt();
-			while (j.existeHorario(hora)||(0>hora)||(hora>23)) {
-				System.out.println("Dato incorrecto");
-				System.out.print("Ingrese un horario valido (0..23): ");
+			Scanner scan = new Scanner(System.in);
+			char op='s';
+			int i=0;
+			int hora =0;
+			while (i<24 && op=='s'){
+				System.out.print("Ingrese un horario: ");
 				hora = scan.nextInt();
+				while (j.existeHorario(hora)||(0>hora)||(hora>23)) {
+					System.out.println("Dato incorrecto");
+					System.out.print("Ingrese un horario valido (0..23): ");
+					hora = scan.nextInt();
+				}
+				j.addHorario(hora);
+				if(i>=5 && i<23){
+					System.out.print("Otro? s/n ");
+					op=scan.next().charAt(0);
+				}
+				i++;
 			}
-			j.addHorario(hora);
-			if(i>=5){
-				System.out.print("Otro? s/n ");
-				op=scan.next().charAt(0);
-			}
-			i++;
-		}
 	}
 
 	//Dado un conjunto y un tablero visto como una lista de jugadores, saco el jugador
@@ -287,8 +286,6 @@ public class Torneo {
 	public static boolean fullList(LinkedList l){
 		return (l.size() == 6 ); //si el tamaño de la lista es la cantidad de jugadores
 	}
-
-
 	//Mostrar el contenido de la lista de ternas
 	public static String toStringTern(LinkedList fixt){
 		String str ="";
