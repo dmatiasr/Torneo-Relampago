@@ -46,7 +46,7 @@ public class Torneo {
 		}catch (InputMismatchException e) {
             throw new IllegalArgumentException("Carga horarios: Ingreso un dato incorrecto");
         } 
-
+        //Ingreso de Datos desde la terminal
 		//carga de los horarios de cada jugador
 		int[] jugHs0 = j0.toArray();    //2 a 5 y hsDisp = 14hs 16hs
 		int[] jugHs1 = j1.toArray();				//14 a 16 y 20hs,21hs
@@ -64,35 +64,68 @@ public class Torneo {
 		cargaHsDisp(tablero,j4.getId(), jugHs4);
 		cargaHsDisp(tablero,j5.getId(), jugHs5);
 		
-	
-		// int jug0,jug1,jug2,jug3,jug4,jug5;
-		// jug0=0;
-		// jug1=1;
-		// jug2=2;
-		// jug3=3;
-		// jug4=4;
-		// jug5=5;
-		// //carga de los horarios de cada jugador
-		// int[] jugHs0 = {0,1,2,3,4,5,6,7,8,9,10}; //{2,3,4,5,14,16};              //2 a 5 y hsDisp = 14hs 16hs --6
-		// int[] jugHs1 = {5,6,7,8,9,10,11,12,13,14,15};//{14,15,16,20,21,3};				//14 a 16 y 20hs,21hs --5
-		// int[] jugHs2 = {5,6,7,8,9,10,11,12,13,14,15};							//{2,3,4,23};					//2 a 4 y 23 hs  ---4
-		// int[] jugHs3 = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23};							//{13,14,15,16,17,21,22,23};	//13 a 17 y 21hs,22hs,23hs ---8
-		// int[] jugHs4 = {9,10,11,12,13,14,15,16,17,18,19,20,21,22};							//{16,17,18,23};				//16 a 18 y 23hs ---4
-		// int[] jugHs5 = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23};		//{0,1,2,3,4,5,6,7,8,9,10,14,15,16,17,23}; //0 a 10, y 14,15,16,17,23 --16
-		// //creo una matriz
-		// Tablero tablero= new Tablero();
-		// //cargo para cada fila(jugador) sus correspondientes horas
-		// cargaHsDisp(tablero,jug0, jugHs0);
-		// cargaHsDisp(tablero,jug1, jugHs1);
-		// cargaHsDisp(tablero,jug2, jugHs2);
-		// cargaHsDisp(tablero,jug3, jugHs3);
-		// cargaHsDisp(tablero,jug4, jugHs4);
-		// cargaHsDisp(tablero,jug5, jugHs5);
+		// Fin de carga de datos desde la terminal
 
 
-		System.out.println(tablero.toString());
+		  //DESCOMENTAR SI SE QUIERE PROBAR SIN INGRESAR DATOS DESDE LA TERMINAL !!!
+		 /*int jug0,jug1,jug2,jug3,jug4,jug5;
+		 jug0=0;
+		 jug1=1;
+		 jug2=2;
+		 jug3=3;
+		 jug4=4;
+		 jug5=5;
+		 //carga de los horarios de cada jugador
+		 int[] jugHs0 = {0,1,2,3,4,5,6,7,8,9,10}; //{2,3,4,5,14,16};              //2 a 5 y hsDisp = 14hs 16hs --6
+		 int[] jugHs1 = {5,6,7,8,9,10,11,12,13,14,15};//{14,15,16,20,21,3};				//14 a 16 y 20hs,21hs --5
+		 int[] jugHs2 = {5,6,7,8,9,10,11,12,13,14,15};							//{2,3,4,23};					//2 a 4 y 23 hs  ---4
+		 int[] jugHs3 = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23};							//{13,14,15,16,17,21,22,23};	//13 a 17 y 21hs,22hs,23hs ---8
+		 int[] jugHs4 = {9,10,11,12,13,14,15,16,17,18,19,20,21,22};							//{16,17,18,23};				//16 a 18 y 23hs ---4
+		 int[] jugHs5 = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23};		//{0,1,2,3,4,5,6,7,8,9,10,14,15,16,17,23}; //0 a 10, y 14,15,16,17,23 --16
+		 //creo una matriz
+		 Tablero tablero= new Tablero();
+		 //cargo para cada fila(jugador) sus correspondientes horas
+		 cargaHsDisp(tablero,jug0, jugHs0);
+		 cargaHsDisp(tablero,jug1, jugHs1);
+		 cargaHsDisp(tablero,jug2, jugHs2);
+		 cargaHsDisp(tablero,jug3, jugHs3);
+		 cargaHsDisp(tablero,jug4, jugHs4);
+		 cargaHsDisp(tablero,jug5, jugHs5);
+		//Fin de carga de datos desde la clase. 
+		*/
+
+		/* //  DESCOMENTAR SI SE QUIERE PROBAR SIN INGRESAR DATOS DESDE LA TERMINAL !!!
+			PARA ESTE EJEMPLO, NO SE PUEDE ARMAR EL TORNEO.
+		 int jug0,jug1,jug2,jug3,jug4,jug5;
+		 jug0=0;
+		 jug1=1;
+		 jug2=2;
+		 jug3=3;
+		 jug4=4;
+		 jug5=5;
+		 //carga de los horarios de cada jugador
+		 int[] jugHs0 = {0,1,2,3,4,5}; //{2,3,4,5,14,16};              //2 a 5 y hsDisp = 14hs 16hs --6
+		 int[] jugHs1 = {0,1,2,3,4,5};//{14,15,16,20,21,3};				//14 a 16 y 20hs,21hs --5
+		 int[] jugHs2 = {0,1,2,3,4,8,5};							//{2,3,4,23};					//2 a 4 y 23 hs  ---4
+		 int[] jugHs3 = {0,1,2,3,4,5};							//{13,14,15,16,17,21,22,23};	//13 a 17 y 21hs,22hs,23hs ---8
+		 int[] jugHs4 = {0,1,2,3,4,5};							//{16,17,18,23};				//16 a 18 y 23hs ---4
+		 int[] jugHs5 = {0,1,2,3,4,5};		//{0,1,2,3,4,5,6,7,8,9,10,14,15,16,17,23}; //0 a 10, y 14,15,16,17,23 --16
+		 //creo una matriz
+		 Tablero tablero= new Tablero();
+		 //cargo para cada fila(jugador) sus correspondientes horas
+		 cargaHsDisp(tablero,jug0, jugHs0);
+		 cargaHsDisp(tablero,jug1, jugHs1);
+		 cargaHsDisp(tablero,jug2, jugHs2);
+		 cargaHsDisp(tablero,jug3, jugHs3);
+		 cargaHsDisp(tablero,jug4, jugHs4);
+		 cargaHsDisp(tablero,jug5, jugHs5);
 		
-		//--------------- Fin de carga de datos ---------------------
+		//Fin de carga de datos desde la clase. 
+		*/
+
+
+		//Muestra la matriz con horarios disponibles
+		System.out.println(tablero.toString());
 		//Creo un conjunto vacio, donde guardar los jugadores q ya van jugando
 		LinkedList<Integer> setMinJugando= new LinkedList<Integer>();
 		//Un "conjunto" donde esten los jugadores que ya jugaron
@@ -107,21 +140,20 @@ public class Torneo {
 		Pair<Integer,Integer> nextMinJugHs = new Pair<Integer,Integer>();
 		
 		//mientras el tamaño de la lista sea menor a la cantidad de jugadores del campeonato.
-		//mientras no sean las 15 partidas para armar.
-		
+				
 		Integer intersecc = new Integer(0);
 		int i=0;
+		//Mientras todos los jugadores no hayan jugado aun.
 		while( !fullList(setMinJugando)  ){
 			minJugHs = minNotSet(tablero,setMinJugando); //saco el minimo distinto de cero.
 			setMinJugando.add( minJugHs.getFirst() ); //meto el jugador con menos HsDisponibles
+			
 			//ahora comparo con el resto de los jugadores
 			//saco el prox minimo que no pertenezca al conjunto
-			//mientras el minimo que estoy tratando no sea cero
-
+			//Mientras el minimo no haya jugado con todo el resto de los jugadores
 			while( !fullList(setMinJugando)  ) {
 				nextMinJugHs= minNotSet(tablero,setMinJugando);
-				//saco la hora que tienen en comun los jugadores que menos Hs Disponibles tienen
-				
+			    //saco la hora que tienen en comun los jugadores que menos Hs Disponibles tienen
 				intersecc = interseccionHs(minJugHs.getFirst(),nextMinJugHs.getFirst(),tablero);		
 				if ( !(intersecc.intValue()==300)){ 
 				//Si la interseccion es 0, entonces no pueden enfrentarse ambos jugadores
@@ -136,6 +168,7 @@ public class Torneo {
 					
 					//meto al conjunto de jugando al nextMinJugHs
 					setMinJugando.add( nextMinJugHs.getFirst() );
+					
 				}
 				else {
 					String msg = " NO TIENEN HORAS EN COMUN O YA SE ENCUENTRAN OCUPADAS ";
@@ -187,7 +220,7 @@ public class Torneo {
 					hora = scan.nextInt();
 				}
 				j.addHorario(hora);
-				if(i>=5 && i<23){
+				if(i>=6 && i<23){
 					System.out.print("Otro? s/n ");
 					op=scan.next().charAt(0);
 				}
@@ -229,9 +262,15 @@ public class Torneo {
 								p.setPair(Integer.valueOf(i),Integer.valueOf(jug));
 							}
 							else{
-								//se calcula el nuevo minimo y se compara con el resto desde el hacia los demas
-								jug=countHs(j,tablero);
-								i=j;
+								//si el elemento q comparo es mayor al ultimo, ultimo es el min
+								if (j==tablero.getLengthFil()-1){
+									jug=countHs(j,tablero);
+									p.setPair(Integer.valueOf(j),Integer.valueOf(jug));		
+								}else{ 						
+									//se calcula el nuevo minimo y se compara con el resto desde el hacia los demas
+									jug=countHs(j,tablero);
+									i=j;
+								}	
 							}	
 						}
 						j++;
@@ -245,7 +284,12 @@ public class Torneo {
 				i++;	
 			}
 			//caso si el ultimo es el minimo, no controlado en el ciclo porq se va de rango "i".
-			if (p.getSecond() > countHs(tablero.getLengthFil()-1,tablero) ){
+			//System.out.println("p.getSecond "+p.getSecond().intValue());
+			//System.out.println("CountHs "+countHs(tablero.getLengthFil()-1,tablero));
+			//System.out.print("SET"+set.toString() );
+			//System.out.print("VALOR DE VERDAD "+set.contains(tablero.getLengthFil()-1) );
+			if (p.getSecond().intValue() > countHs(tablero.getLengthFil()-1,tablero) && (!set.contains(tablero.getLengthFil()-1 )    )   ){
+
 				jug=countHs(tablero.getLengthFil()-1,tablero);
 				p.setPair(Integer.valueOf(tablero.getLengthFil()-1),Integer.valueOf(jug ) );
 			}
@@ -253,23 +297,15 @@ public class Torneo {
 			return p;
 	}
 	//Dados 2 jugadores, buscar la interseccion (la primer o unica hs disponible que tienen
-	//en comun, si es 0 "vacio" ,entonces no tienen interseccion en comun)
+	//en comun, si es 300 "vacio" ,entonces no tienen interseccion en comun)
 	//El primer parametro va a ser el que menos hs tiene
 	public static Integer interseccionHs(Integer jug1,Integer jug2,Tablero tablero){
-		Integer intersec= new Integer(300);//Si no comparten hs, retorna 0.
+		Integer intersec= new Integer(300);//Si no comparten hs, retorna 300.
 		for (int c=0;c<tablero.getLengthCol();c++){
 			if (tablero.tab[jug1][c]==1){ //si el jugador1 en esa col==1
-				//System.out.println("Valor Tablero Jug1 "+tablero.tab[jug1][c]);
-				//System.out.println("Posicion "+c);
-				
 				if(tablero.tab[jug2][c]==1){//si el jugador2 en esa col==1
-				
-				//System.out.println("valor tablero jug2 "+tablero.tab[jug1][c]);	//entonces comparten hs
-
 					intersec=Integer.valueOf(c); //y es la hora "c"
 					return intersec;
-					//para agarrar la primer interseccion entre ambos.
-					//c=tablero.getLengthCol();
 				}
 			}
 		}
@@ -286,13 +322,15 @@ public class Torneo {
 	public static boolean fullList(LinkedList l){
 		return (l.size() == 6 ); //si el tamaño de la lista es la cantidad de jugadores
 	}
+
 	//Mostrar el contenido de la lista de ternas
 	public static String toStringTern(LinkedList fixt){
-		String str ="";
+		String str ="\n\t";
 		int i=0;	
 		while (i < fixt.size()){
 			str += fixt.get(i);
 			i++;
+			str+="\n\t";
 		}
 		return str;
 	}
