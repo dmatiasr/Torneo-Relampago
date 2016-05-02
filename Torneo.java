@@ -15,13 +15,9 @@ import java.util.*;
 import java.util.InputMismatchException;
 
 public class Torneo {
-	//public  Tablero tablero;
-	//public Pair p;
+	
 	public static void main(String[] args) {
-		//Hacer metodos para tomar las horas como parametros(intervalo y hsDisponibilidad) 
-		//de linea de entrada para cada jugador
-		//Carga de jugadores segun su fila
-
+		
 		
 		Jugador j0 = new Jugador(0);
 		Jugador j1 = new Jugador(1);
@@ -76,12 +72,12 @@ public class Torneo {
 		 jug4=4;
 		 jug5=5;
 		 //carga de los horarios de cada jugador
-		 int[] jugHs0 = {0,1,2,3,4,5,6,7,8,9,10}; //{2,3,4,5,14,16};              //2 a 5 y hsDisp = 14hs 16hs --6
-		 int[] jugHs1 = {5,6,7,8,9,10,11,12,13,14,15};//{14,15,16,20,21,3};				//14 a 16 y 20hs,21hs --5
-		 int[] jugHs2 = {5,6,7,8,9,10,11,12,13,14,15};							//{2,3,4,23};					//2 a 4 y 23 hs  ---4
-		 int[] jugHs3 = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23};							//{13,14,15,16,17,21,22,23};	//13 a 17 y 21hs,22hs,23hs ---8
-		 int[] jugHs4 = {9,10,11,12,13,14,15,16,17,18,19,20,21,22};							//{16,17,18,23};				//16 a 18 y 23hs ---4
-		 int[] jugHs5 = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23};		//{0,1,2,3,4,5,6,7,8,9,10,14,15,16,17,23}; //0 a 10, y 14,15,16,17,23 --16
+		 int[] jugHs0 = {0,1,2,3,4,5,6,7,8,9,10}; 
+		 int[] jugHs1 = {5,6,7,8,9,10,11,12,13,14,15};//{14,15,16,20,21,3};	
+		 int[] jugHs2 = {5,6,7,8,9,10,11,12,13,14,15};						
+		 int[] jugHs3 = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23}; 
+		 int[] jugHs4 = {9,10,11,12,13,14,15,16,17,18,19,20,21,22};	
+		 int[] jugHs5 = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23};		
 		 //creo una matriz
 		 Tablero tablero= new Tablero();
 		 //cargo para cada fila(jugador) sus correspondientes horas
@@ -104,12 +100,12 @@ public class Torneo {
 		 jug4=4;
 		 jug5=5;
 		 //carga de los horarios de cada jugador
-		 int[] jugHs0 = {0,1,2,3,4,5}; //{2,3,4,5,14,16};              //2 a 5 y hsDisp = 14hs 16hs --6
-		 int[] jugHs1 = {0,1,2,3,4,5};//{14,15,16,20,21,3};				//14 a 16 y 20hs,21hs --5
-		 int[] jugHs2 = {0,1,2,3,4,8,5};							//{2,3,4,23};					//2 a 4 y 23 hs  ---4
-		 int[] jugHs3 = {0,1,2,3,4,5};							//{13,14,15,16,17,21,22,23};	//13 a 17 y 21hs,22hs,23hs ---8
-		 int[] jugHs4 = {0,1,2,3,4,5};							//{16,17,18,23};				//16 a 18 y 23hs ---4
-		 int[] jugHs5 = {0,1,2,3,4,5};		//{0,1,2,3,4,5,6,7,8,9,10,14,15,16,17,23}; //0 a 10, y 14,15,16,17,23 --16
+		 int[] jugHs0 = {0,1,2,3,4,5};
+		 int[] jugHs1 = {0,1,2,3,4,5};
+		 int[] jugHs2 = {0,1,2,3,4,8,5};	
+		 int[] jugHs3 = {0,1,2,3,4,5};		
+		 int[] jugHs4 = {0,1,2,3,4,5};			
+		 int[] jugHs5 = {0,1,2,3,4,5};		
 		 //creo una matriz
 		 Tablero tablero= new Tablero();
 		 //cargo para cada fila(jugador) sus correspondientes horas
@@ -142,7 +138,6 @@ public class Torneo {
 		//mientras el tamaño de la lista sea menor a la cantidad de jugadores del campeonato.
 				
 		Integer intersecc = new Integer(0);
-		int i=0;
 		//Mientras todos los jugadores no hayan jugado aun.
 		while( !fullList(setMinJugando)  ){
 			minJugHs = minNotSet(tablero,setMinJugando); //saco el minimo distinto de cero.
@@ -205,7 +200,7 @@ public class Torneo {
 		return count;
 	}
 	
-
+	//metodo para cargar los horarios de cada jugador.
 	public static void cargaHorarios (Jugador j){
 			Scanner scan = new Scanner(System.in);
 			char op='s';
@@ -284,12 +279,7 @@ public class Torneo {
 				i++;	
 			}
 			//caso si el ultimo es el minimo, no controlado en el ciclo porq se va de rango "i".
-			//System.out.println("p.getSecond "+p.getSecond().intValue());
-			//System.out.println("CountHs "+countHs(tablero.getLengthFil()-1,tablero));
-			//System.out.print("SET"+set.toString() );
-			//System.out.print("VALOR DE VERDAD "+set.contains(tablero.getLengthFil()-1) );
 			if (p.getSecond().intValue() > countHs(tablero.getLengthFil()-1,tablero) && (!set.contains(tablero.getLengthFil()-1 )    )   ){
-
 				jug=countHs(tablero.getLengthFil()-1,tablero);
 				p.setPair(Integer.valueOf(tablero.getLengthFil()-1),Integer.valueOf(jug ) );
 			}
@@ -310,7 +300,6 @@ public class Torneo {
 			}
 		}
 		return intersec;
-				
 	}
 	//Dada una hora y dos jugadores, setea en 0 la hora que comparten los jugadores
 	//en el tablero.
