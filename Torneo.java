@@ -99,13 +99,10 @@ public class Torneo {
 		LinkedList<Integer> setMinJugando= new LinkedList<Integer>();
 		//Un "conjunto" donde esten los jugadores que ya jugaron
 		LinkedList<Integer> setMinJugaron= new LinkedList<Integer>();
-		//arreglo auxiliar, guarda los jugadores que ya han jugado.
-		Integer[] aux = new Integer[6];
-
 		//representa una partida
 		Tern<Integer,Integer,Integer> partida = new Tern<Integer,Integer,Integer>();
 		//va a guardar la lista de partidas
-		LinkedList<Tern> fixture= new LinkedList<Tern>();
+		LinkedList<String> fixture= new LinkedList<String>();
 		//representa el jugador con menos hs y la cantidad que tiene.
 		Pair<Integer,Integer> minJugHs = new Pair<Integer,Integer>();
 		//el segundo jugador con menos hs y la cantidad que tiene
@@ -113,55 +110,49 @@ public class Torneo {
 		
 		//mientras el tamaño de la lista sea menor a la cantidad de jugadores del campeonato.
 		//mientras no sean las 15 partidas para armar.
-		int cantEncuentros=15;
+		
 		Integer intersecc = new Integer(0);
-		for(int i=0;i<cantEncuentros;i++){
+		int i=0;
+		while( !fullList(setMinJugando)  ){
 			minJugHs = minNotSet(tablero,setMinJugando); //saco el minimo distinto de cero.
 			setMinJugando.add( minJugHs.getFirst() ); //meto el jugador con menos HsDisponibles
 			//ahora comparo con el resto de los jugadores
 			//saco el prox minimo que no pertenezca al conjunto
 			//mientras el minimo que estoy tratando no sea cero
+
 			while( !fullList(setMinJugando)  ) {
 				nextMinJugHs= minNotSet(tablero,setMinJugando);
 				//saco la hora que tienen en comun los jugadores que menos Hs Disponibles tienen
 				
-				System.out.println("-------------------Comparo Jug "+minJugHs.getFirst());
-				System.out.println("-------------------Con   Jug     "+nextMinJugHs.getFirst());
 				intersecc = interseccionHs(minJugHs.getFirst(),nextMinJugHs.getFirst(),tablero);		
-				System.out.println("HORA "+ intersecc);
-				
 				if ( !(intersecc.intValue()==300)){ 
 				//Si la interseccion es 0, entonces no pueden enfrentarse ambos jugadores
 				//porque no hay horarios en comun.
 				//entonces, no se puede armar el fixture.
 					//guardo la partida y a que hora
 					partida.setTern(minJugHs.getFirst(),nextMinJugHs.getFirst(),intersecc);		
-					fixture.add(partida);
+					fixture.add(partida.toString());
 					//actualizo a ambos que ya no pueden jugar a esa hora con nadie mas
 					     		//hs      jug1                  jug2                  tablero
 					actualizaHs(intersecc,minJugHs.getFirst(),nextMinJugHs.getFirst(),tablero);
 					
 					//meto al conjunto de jugando al nextMinJugHs
 					setMinJugando.add( nextMinJugHs.getFirst() );
-					System.out.println("jugando "+setMinJugando.toString());
-
-				}else {
+				}
+				else {
 					String msg = " NO TIENEN HORAS EN COMUN O YA SE ENCUENTRAN OCUPADAS ";
 					throw new IllegalArgumentException("Jug "+minJugHs.getFirst()+" Y Jug "+nextMinJugHs.getFirst()+msg);
 				}
 			}
 			setMinJugando.clear(); //Limpio la lista de los que estan jugando (1 contra todos).
-			System.out.println("");
-			System.out.println("Lista de los jugando vaciada "+setMinJugando.toString());	
 			setMinJugaron.add(minJugHs.getFirst() ); //lista de jugadores que ya esta armado sus encuentros
-			System.out.println("Lista de los que ya jugaron "+setMinJugaron.toString());
-			System.out.println("");
 			setMinJugando = (LinkedList<Integer>) setMinJugaron.clone(); //Recuerdo cuales jugadores ya van jugando para no volver a analizarlos
 			// a tratarlos nuevamente.
+		
 		}
 		//Muestro el resultado del fixture armado.
-		//String result = toStringTern(fixture);
-		//System.out.println(result);
+		String result = toStringTern(fixture);
+		System.out.println(result);
 
 	}
 
@@ -182,25 +173,7 @@ public class Torneo {
 		}
 		return count;
 	}
-	//calcular la fila que tiene menos hs disponibles.(jugador con menos hs disponibles.)	
-	//retornar la fila (el jugador) y cuantas hsDisponibles tiene.
-	public static Pair<Integer,Integer> minHsDisp (Tablero tablero){
-		Pair<Integer,Integer> p = new Pair<Integer,Integer>();
-		//calculo las hs para el primer jugador y comparo con los demas	
-		int jug= countHs(0,tablero);
-		p.setPair(Integer.valueOf(0),Integer.valueOf(jug));
-		int i=1;
-		int aux=0;
-		while( i<tablero.getLengthFil() ){
-			aux=countHs(i,tablero);
-			if (jug > aux){ //comparar el primero con los demas e ir guardando el minimo.
-				jug=countHs(i,tablero);//actualizo el nuevo minimo
- 				p.setPair(Integer.valueOf(i),Integer.valueOf(jug));//le paso el jugador y cuanto tiene
-			}			
-			i++;
-		}
-		return p;			
-	}
+	
 
 	public static void cargaHorarios (Jugador j){
 		Scanner scan = new Scanner(System.in);
@@ -316,25 +289,16 @@ public class Torneo {
 	}
 
 
-	//public static LinkedList<Tern> sortList(LinkedList<Tern> fixt){
-	//}
-
-
-
 	//Mostrar el contenido de la lista de ternas
-	public static String toStringTern(LinkedList<Tern> fixt){
+	public static String toStringTern(LinkedList fixt){
 		String str ="";
-		while (!fixt.isEmpty()){
-			str += fixt.poll();
+		int i=0;	
+		while (i < fixt.size()){
+			str += fixt.get(i);
+			i++;
 		}
 		return str;
 	}
-	public static LinkedList<Integer> toList (Integer[] array){
-		LinkedList<Integer> list= new LinkedList<Integer>();
-		for (int i=0; i<array.length;i++){
-			list.add(i,array[i]);
-		}
-		return list;
-	}
+
 
 }
